@@ -124,9 +124,38 @@ Tambahkan section Skills dengan:
   - Staggered reveal animation (masing-masing delay 0.05s bertahap)
 - Semua skill items pakai scroll reveal (Intersection Observer — opacity 0, translateY 30px → visible)
 
+**Icons (PENTING — jangan pakai emoji):**
+Gunakan inline SVG untuk semua icon. Setiap icon:
+- `viewBox="0 0 24 24"` — ukuran konsen
+- `fill="none"` dengan `stroke="currentColor"` (line icon style) atau `fill="currentColor"` (solid)
+- `stroke-width="1.5"` untuk line icons
+- Ukuran 20x20 atau 18x18 tergantung konteks
+- Letakkan di dalam `.skill-icon` container (40x40, rounded, background gradient)
+- Warna: `currentColor` agar inherit dari parent (`var(--accent)`)
+
+Contoh icon patterns:
+```html
+<!-- Atom (React) -->
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+  <circle cx="12" cy="12" r="1.5"/>
+  <ellipse cx="12" cy="12" rx="10" ry="4"/>
+  <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/>
+  <ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/>
+</svg>
+
+<!-- Database -->
+<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+  <ellipse cx="12" cy="5" rx="9" ry="3"/>
+  <path d="M3 5v6c0 1.7 4 3 9 3s9-1.3 9-3V5"/>
+  <path d="M3 11v6c0 1.7 4 3 9 3s9-1.3 9-3v-6"/>
+</svg>
+```
+
+Sumber icon: Lucide (lucide.dev), Heroicons, atau Feather Icons — semua free & open source.
+Cukup copy path SVG-nya dan inline di HTML.
+
 **Data skills (placeholder):**
 React, TypeScript, Tailwind CSS, Node.js, PostgreSQL, Docker, Git, Figma
-(Ganti icon emoji yang relevan)
 ```
 
 ## Prompt 5: Projects Grid dengan Card Effects (15 menit)
@@ -172,6 +201,8 @@ Tambahkan Contact section + Footer:
    - Border: subtle white ring
    - Hover: background jadi accent gradient + glow shadow + lift 2px
    - Backdrop-filter blur
+   - **Icon: inline SVG** sebelum text (globe, mail, calendar)
+   - JANGAN pakai emoji — pakai SVG line icons (Lucide style)
 
 **Footer:**
 1. Background putih, border atas tipis
