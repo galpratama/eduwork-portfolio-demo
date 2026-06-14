@@ -21,7 +21,7 @@ Demo website portfolio untuk workshop **"Optimasi Claude"** — kolaborasi Galih
 
 ## 🚀 Live Demo
 
-**[Lihat demo live →](https://eduwork-portfolio-demo.netlify.app)**
+**[Lihat demo live →](https://eduwork-portfolio-demo.netlify.app)** ✅ Live!
 
 ## 🎯 Cara Pakai (Untuk Peserta Workshop)
 
