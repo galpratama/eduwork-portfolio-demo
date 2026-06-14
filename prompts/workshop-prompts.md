@@ -1,179 +1,274 @@
 # Prompt Pack: Build Portfolio Website dengan Claude
 
-Kumpulan prompt yang digunakan dalam workshop "Optimasi Claude" (90 menit).
-Setiap prompt dirancang untuk menghasilkan satu bagian dari website portfolio.
+Kumpulan prompt untuk workshop "Optimasi Claude" (90 menit) — kolaborasi Galih Pratama × Eduwork.
+Setiap prompt dirancang menghasilkan satu bagian website portfolio dengan design modern, gradasi subtle, dan animasi meaningful.
 
 ---
 
-## Prompt 1: Setup & Struktur Dasar (10 menit)
+## Prompt 1: Setup & Struktur Dasar dengan Design System (10 menit)
 
 ```
-Buatkan saya sebuah website portfolio one-page dengan struktur HTML/CSS yang modern dan clean.
-Spesifikasi:
+Buatkan website portfolio one-page dengan HTML/CSS inline. Gunakan design system berikut:
 
-1. Pakai Google Fonts "Geist" weight 300,400,500,600 dan font monospace "Geist Mono"
-2. Design system: clean, modern, white background, dark text (#171717)
-3. Gunakan CSS custom properties (variabel) untuk warna
-4. Gunakan teknik box-shadow untuk border, bukan border CSS
-5. Sertakan navigasi sticky di atas
-6. Sertakan section-section berikut (kosongkan kontennya dulu):
-   - Hero / header
-   - About me
-   - Skills & tools
-   - Projects / portfolio
-   - Contact
-   - Footer
-7. Responsive: mobile-first, breakpoint di 768px dan 480px
-8. Animasi fade-in sederhana untuk hero section
+**Typography:**
+- Font: Geist (Google Fonts) — weights 300, 400, 500, 600, 700
+- Font monospace: Geist Mono (Google Fonts) — weights 400, 500
+- Judul: 2.5rem, weight 600, letter-spacing -0.04em
+- Body: 16px, weight 400
 
-Output: satu file index.html lengkap dengan semua CSS inline di dalam <style> tag.
+**Color palette (CSS custom properties):**
+- Background: white (#ffffff), light gray (#fafafa)
+- Text: near-black (#171717), gray (#4d4d4d, #666666)
+- Accent: deep red (#e63946) dengan hover (#c1121f)
+- Gunakan variabel CSS untuk semua warna
+
+**Gradients (key):**
+- Hero background: subtle vertical gradient (white → very light warm)
+- Button utama: gradient accent (merah tua → merah terang)
+- Section skills: subtle light gray gradient
+- Contact section: dark gradient (#1a1a1a → #0a0a0a)
+- Card stats: subtle gradient background
+
+**Shadows:**
+- Gunakan teknik multi-layer shadow, bukan border tebal
+- Shadow-border: 0px 0px 0px 1px rgba(0,0,0,0.07)
+- Card shadow: 0px 0px 0px 1px + 0px 2px 4px + 0px 8px 16px -8px
+
+**Struktur section:**
+- Sticky navigation (blur backdrop)
+- Hero (dengan background gradient + glow orbs)
+- About (2 kolom: teks + stats grid)
+- Skills (full-width gradient background)
+- Projects (grid cards)
+- Contact (dark gradient background)
+- Footer
+
+**Responsive:** mobile-first, breakpoint 768px & 480px
+
+Output: satu file index.html lengkap dengan semua CSS di dalam <style>.
+Gunakan placeholder content dulu — nanti kita isi.
 ```
 
-## Prompt 2: Hero Section (10 menit)
+## Prompt 2: Hero Section dengan Gradasi & Animasi (10 menit)
 
 ```
-Di file index.html yang sudah ada, isi bagian hero section dengan:
+Di hero section, tambahkan:
 
-1. Badge kecil di atas judul: teks "Open for Opportunities" dengan dot indikator hijau/merah
-2. Judul utama (h1): format dua baris, baris kedua pakai warna aksen. 
-   Contoh: "Full-stack Developer &<br><span class='highlight'>AI Enthusiast</span>"
-3. Deskripsi singkat 1-2 kalimat tentang saya
-4. Dua tombol CTA: 
-   - Primary (dark background): "Lihat Portfolio" dengan icon panah
-   - Secondary (outline): "Hubungi Saya"
+**Background:**
+1. Subtle gradient dari putih ke sangat light warm (#ffffff → #faf8f8)
+2. DUA "glow orb" di belakang — radial-gradient circle posisi absolute, 
+   satu di kanan atas, satu di kiri bawah
+3. Animasi float pada glow orbs: @keyframes floatGlow — geser perlahan + scale subtle
 
-Tampilkan data placeholder dulu — saya akan ganti nanti dengan data asli.
-Pastikan styling tetap clean, spacing generous, tipografi bold.
+**Konten:**
+1. Badge kecil: teks + dot indikator (pulse animation pada dot)
+2. Judul utama dua baris dengan highlight: 
+   - Baris kedua pakai gradient text (background-clip: text)
+   - Gradient dari merah tua ke merah terang
+3. Deskripsi 1-2 kalimat
+4. Dua tombol CTA:
+   - Primary: gradient accent background, shadow glow, hover lift
+   - Secondary: white background, hover subtle gradient
+5. Semua elemen animasi fadeInUp (dari bawah, opacity 0→1)
+
+**Animasi yang harus ada:**
+- Glow orbs: float animation (8s & 10s infinite, alternate direction)
+- Badge dot: pulse scale animation (2s)
+- Hero elements: staggered fade-in-up (delay 0s, 0.1s, 0.2s, 0.3s)
+- Button arrow: geser kanan 3px pas hover
 ```
 
-## Prompt 3: About & Stats Section (10 menit)
+## Prompt 3: About & Stats dengan Hover Effects (10 menit)
 
 ```
-Tambahkan section "About Me" di dalam index.html:
+Tambahkan section About Me:
 
-1. Layout dua kolom: kiri = teks tentang saya, kanan = statistik dalam grid 2x2
-2. Kolom kiri: 2 paragraf tentang background & passion saya
-3. Kolom kanan: 4 kartu statistik dengan:
-   - Angka besar (warna aksen)
-   - Label kecil di bawahnya
-   - Background putih, border halus, rounded corner
-4. Style kartu statistik pakai box-shadow untuk depth
+**Layout:**
+- 2 kolom: kiri = about text, kanan = stats grid 2x2
+- Grid responsive
 
-Data placeholder:
-- "XX+ Projects"
-- "XX Clients"
-- "XX Years Experience"  
-- "XX Technologies"
+**Stats cards (per card):**
+1. Background: subtle gradient (putih ke gray-50)
+2. Shadow card multi-layer
+3. Angka: gradient text (sama kaya accent) — bold, besar
+4. Label kecil di bawah
+5. Hover effect: 
+   - Card naik 4px (translateY)
+   - Shadow lebih tegas
+   - Glow radial muncul dari pojok kanan atas card (::before pseudo-element, opacity 0→1)
+6. Counter animation: angka count-up dari 0 ke target (pakai Intersection Observer + requestAnimationFrame)
 
-Saya akan isi data asli nanti.
+**Teks about:**
+- 2 paragraf dengan line-height relaxed (1.85)
+- Warna gray-600
 ```
 
-## Prompt 4: Skills Grid (10 menit)
+## Prompt 4: Skills Grid dengan Gradient Background (10 menit)
 
 ```
-Tambahkan section "Skills & Tools" dengan:
+Tambahkan section Skills dengan:
 
-1. Background section pakai abu-abu sangat muda (#fafafa) — full width
-2. Judul dan subjudul rata kiri
-3. Grid skill items: 4 kolom di desktop, 2 kolom di mobile
-4. Setiap skill item:
-   - Icon (emoji) + nama skill
-   - Background putih, rounded 8px
-   - Shadow border halus
-   - Hover: shadow lebih tegas + naik 2px
+**Background section:**
+- Full-width gradient (#fafafa → #f7f5f5 → #fafafa)
+- Garis tipis di atas: horizontal gradient (transparent → accent → transparent)
 
-Skill yang ditampilkan (pakai data placeholder):
-- React / Next.js
-- TypeScript
-- Tailwind CSS
-- Node.js
-- PostgreSQL
-- Docker
-- Git / GitHub
-- Figma
+**Skills grid:**
+- 4 kolom desktop, 2 kolom tablet, 2 kolom mobile
+- Setiap skill item:
+  - Background: gradient subtle (putih ke gray-50)
+  - Icon emoji dalam kotak kecil (background gradient, rounded)
+  - Nama skill
+  - Hover: naik 3px + shadow lebih kuat
+  - Hover: icon scale up 1.1 (transform)
+  - Hover: overlay gradient accent subtle via ::after pseudo
+  - Staggered reveal animation (masing-masing delay 0.05s bertahap)
+- Semua skill items pakai scroll reveal (Intersection Observer — opacity 0, translateY 30px → visible)
 
-Ganti icon emoji yang relevan untuk masing-masing skill.
+**Data skills (placeholder):**
+React, TypeScript, Tailwind CSS, Node.js, PostgreSQL, Docker, Git, Figma
+(Ganti icon emoji yang relevan)
 ```
 
-## Prompt 5: Projects Showcase (15 menit)
+## Prompt 5: Projects Grid dengan Card Effects (15 menit)
 
 ```
-Tambahkan section "Projects" dengan grid 2 kolom (1 kolom di mobile):
+Tambahkan section Projects:
 
-Setiap project card:
-1. Placeholder image di atas (gradient background + inisial project)
-2. Tag / badge (contoh: "Web App", "Mobile", "Design")
-3. Judul project
-4. Deskripsi singkat
-5. Tech stack dalam tag kecil (monospace font)
-6. Seluruh card bisa di-klik (link ke project)
-7. Hover effect: shadow lebih kuat + geser naik 2px
+**Grid:** 2 kolom desktop, 1 kolom mobile
 
-Buat 4 project card dengan data placeholder — saya akan isi nanti.
-Pastikan jarak antar card konsisten dan responsif.
+**Setiap project card:**
+1. Placeholder top: gradient background + inisial (huruf besar, putih)
+   - Di atasnya overlay: gradient transparent → subtle black (depth)
+2. Body: padding comfortable
+3. Tag/badge: background gradient accent-light, rounded pill
+4. Judul: weight 600
+5. Deskripsi: warna gray-600
+6. Tech stack tags: font monospace, background gradient subtle
+   - Pas hover card, tech tags berubah ke background accent-light
+
+**Hover effects:**
+- Card: translateY(-6px) + shadow lebih kuat + gradient overlay halus
+- Timing: cubic-bezier(0.25, 0.8, 0.25, 1.2) — subtle bounce feel
+- Tech tags: transisi background ke accent-light
+
+**Animasi:**
+- Card reveal: staggered (delay 0s, 0.1s, 0.15s, 0.2s)
+- Scroll-triggered via Intersection Observer
+
+Buat 4 project card dengan data placeholder.
 ```
 
 ## Prompt 6: Contact & Footer (10 menit)
 
 ```
-Tambahkan section "Contact" dan footer:
+Tambahkan Contact section + Footer:
 
-Contact section:
-1. Background dark (#171717), teks putih
-2. Judul: "Let's Work Together"
-3. Subjudul: ajakan singkat
-4. 3 tombol link horizontal: Website, Email, LinkedIn
-5. Style tombol: background semi-transparent white, rounded
+**Contact section:**
+1. Background: dark gradient (#1a1a1a → #111111 → #0a0a0a)
+2. Dua glow orbs (radial gradient, accent, posisi absolute, animasi float)
+3. Teks putih: judul + subjudul (gray-400)
+4. 3 link button:
+   - Background: semi-transparent white gradient
+   - Border: subtle white ring
+   - Hover: background jadi accent gradient + glow shadow + lift 2px
+   - Backdrop-filter blur
 
-Footer:
+**Footer:**
 1. Background putih, border atas tipis
-2. Kiri: copyright text
-3. Kanan: link sosial media
-4. Font kecil, warna abu-abu
+2. Text kecil, gray-400
+3. Link sosial: hover ke accent color
+4. Responsive: stack di mobile
 ```
 
-## Prompt 7: Polish & Responsive (15 menit)
+## Prompt 7: Polish — Animasi Scroll & Micro-interactions (15 menit)
 
 ```
-Tolong perbaiki aspek responsive dan visual berikut:
+Tambahkan animasi dan polish berikut:
 
-1. Cek semua spacing — pastikan konsisten (gunakan multiple 8px)
-2. Tipografi: 
-   - Judul section: 2.5rem, weight 600, letter-spacing -0.04em
-   - Body: 1rem, weight 400, line-height 1.8
-   - Pastikan tidak ada teks yang terlalu kecil di mobile
-3. Mobile navigation: tambahkan hamburger menu untuk layar < 768px
-4. Animasi: tambahkan animasi fade-in-up untuk semua section (pakai Intersection Observer atau CSS animation dengan delay)
-5. Favicon: tambahkan placeholder
-6. Meta tags: title, description
-7. Pastikan semua link buttons punya hover state
-8. Test di lebar 375px, 768px, 1024px, 1440px — harus tetap bagus
+**1. Scroll Reveal (Intersection Observer):**
+- Semua section elements punya class "reveal"
+- Default state: opacity 0, translateY 30px
+- Saat masuk viewport (threshold 0.15): opacity 1, translateY 0
+- Transisi: 0.7s ease, cubic-bezier(0.22, 0.61, 0.36, 1)
+- Staggered delays untuk children (reveal-delay-1 s/d reveal-delay-4)
+- Observer dibersihkan setelah element revealed (unobserve)
+
+**2. Nav scroll effect:**
+- Saat scroll > 20px: background lebih solid + shadow lebih tegas
+- Transisi: 0.3s ease
+
+**3. Nav link underline animation:**
+- ::after pseudo-element — garis 2px gradient accent
+- Default: scaleX(0), hover: scaleX(1)
+- Transisi: 0.25s ease
+
+**4. Counter animation:**
+- Stats angka count-up pakai requestAnimationFrame
+- Easing: ease-out cubic (1 - (1-progress)^3)
+- Trigger via Intersection Observer (threshold 0.5)
+
+**5. Hardware acceleration:**
+- Gunakan transform & opacity (bukan top/left) untuk animasi performant
+- will-change atau backface-visibility untuk element yang dianimasi
+
+**6. Button interactions:**
+- Primary: hover lift 2px + shadow glow membesar
+- Secondary: hover lift 2px + background subtle gradient
+- Arrow icon: translateX(3px) pas hover primary button
+- Active state: translateY(0) (klik)
+
+Pastikan semua animasi smooth, tidak mengganggu accessibility (prefers-reduced-motion).
 ```
 
 ## Prompt 8: Deploy ke Netlify (10 menit)
 
 ```
-Saya punya file index.html yang sudah jadi. Bantu saya deploy ke Netlify:
+Saya sudah punya file index.html yang siap deploy. Bantu deploy ke Netlify:
 
-1. Pastikan file sudah siap di folder project
-2. Buat file _redirects (opsional, untuk SPA routing)
-3. Drag-and-drop deploy atau pakai Netlify CLI
-4. Set custom domain kalau ada
-5. Pastikan HTTPS aktif
-
-Steps detail:
+**Option A — Drag & drop (paling gampang):**
 1. Buka https://app.netlify.com
-2. Klik "Deploy manually" → drag folder project
-3. Atau pakai CLI: `npx netlify-cli deploy --prod --dir=.`
-4. Share link yang sudah live
+2. Login / signup
+3. Klik area "Drag and drop your site folder here"
+4. Drop folder yang berisi index.html
+5. Netlify auto-deploy dan kasih URL random
+6. Bisa custom domain nanti
+
+**Option B — Netlify CLI:**
+```bash
+npm i -g netlify-cli
+netlify deploy --prod --dir=.
+```
+
+**Option C — GitHub:**
+1. Push project ke GitHub repo
+2. Di Netlify: "Import from Git" → pilih repo
+3. Auto-deploy setiap push
+
+**After deploy:**
+- Pastikan HTTPS aktif (otomatis di Netlify)
+- Cek semua link dan asset loading
+- Custom domain kalau ada
 ```
 
 ---
 
-## Tips Buat Peserta Workshop
+## Tips untuk Peserta Workshop
 
-1. **GANTI semua placeholder** — ini yang bikin portfolio kamu unik
-2. **Warna aksen** — pilih 1 warna yang mencerminkan personal brand kamu
-3. **Foto & konten asli** — siapkan sebelum workshop: foto profil, bio, link project
-4. **Jangan overthink design** — template ini udah clean, fokus ke konten
-5. **Commit ke GitHub** — simpan semua progress di repo biar aman
+1. **Siapin konten dulu** — foto, bio, skill list, project links — biar workshop fokus ke teknis
+2. **Jangan ganti struktur** — modifikasi konten + warna aja, struktur udah optimal
+3. **Warna aksen itu kunci** — pilih 1 warna yang jadi identitas kamu, semua gradient turunan dari itu
+4. **Animasi itu bumbu** — jangan berlebihan, cukup reveal + hover
+5. **Deploy duluan** — meskipun belum perfect, deploy aja dulu biar ada URL yang bisa dishare
+
+## Checklist Sebelum Share
+
+- [ ] Nama & role sudah diganti
+- [ ] Warna aksen sudah disesuaikan
+- [ ] Foto/logo sudah ditambahkan
+- [ ] Teks about me sudah personal
+- [ ] Stats angka sudah akurat
+- [ ] Skills sudah sesuai
+- [ ] Projects ada link yang bener
+- [ ] Link kontak (email, sosmed) sudah diganti
+- [ ] Sudah deploy dan HTTPS aktif
+- [ ] Test di HP (responsive)

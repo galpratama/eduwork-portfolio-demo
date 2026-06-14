@@ -33,10 +33,13 @@ Demo website portfolio untuk workshop **"Optimasi Claude"** — kolaborasi Galih
 
 ## 🎨 Design
 
-- **Style:** Clean minimal (Vercel-inspired)
+- **Style:** Clean modern dengan gradasi subtle + animasi meaningful
+- **Gradients:** Hero glow orbs, button gradients, dark contact gradient, card hover gradients
+- **Animations:** Scroll reveal (Intersection Observer), counter animation, float glow, pulse dot, hover lift
 - **Font:** Geist + Geist Mono (Google Fonts)
-- **Color:** Neutral grayscale + red accent
+- **Color:** Neutral grayscale + red accent gradient
 - **Layout:** One-page, fully responsive
+- **Logo:** SVG gradient logo (red circle + white "G")
 
 ## 🔧 Tech Stack
 

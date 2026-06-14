@@ -5,12 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Your Name — Portfolio</title>
   <meta name="description" content="Personal portfolio website built with Claude AI.">
-  
-  <!-- TODO: Ganti favicon dengan foto/profile pic kamu -->
-  <!-- <link rel="icon" type="image/png" href="your-photo.png"> -->
 
-  <!-- Font: Geist dari Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 
   <style>
     /* ===== RESET ===== */
@@ -19,39 +15,54 @@
     /* ===== COLOR PALETTE (GANTI SESUAI SELERA) ===== */
     :root {
       --black: #171717;
+      --gray-900: #1a1a1a;
       --gray-600: #4d4d4d;
       --gray-500: #666666;
-      --gray-400: #808080;
+      --gray-400: #8a8a8a;
       --gray-100: #ebebeb;
       --gray-50: #fafafa;
       --white: #ffffff;
-      --accent: #e63946;       /* GANTI: warna aksen kamu */
-      --accent-hover: #c1121f; /* GANTI: warna aksen hover */
-      --accent-light: #fef2f2; /* GANTI: background aksen */
-      --max-width: 1100px;
-      --nav-height: 64px;
+
+      /* TODO: GANTI warna aksen */
+      --accent: #e63946;
+      --accent-hover: #c1121f;
+      --accent-light: #fef2f2;
+      --accent-glow: rgba(230, 57, 70, 0.15);
+
+      /* Gradients */
+      --gradient-hero: linear-gradient(180deg, #ffffff 0%, #fdfbfb 40%, #faf8f8 100%);
+      --gradient-accent: linear-gradient(135deg, #e63946 0%, #d62839 50%, #c1121f 100%);
+      --gradient-dark: linear-gradient(180deg, #1a1a1a 0%, #111111 50%, #0a0a0a 100%);
+      --gradient-skills: linear-gradient(180deg, #fafafa 0%, #f7f5f5 50%, #fafafa 100%);
+
+      /* Shadows */
+      --shadow-border: 0px 0px 0px 1px rgba(0,0,0,0.07);
+      --shadow-card: 0px 0px 0px 1px rgba(0,0,0,0.06), 0px 2px 4px rgba(0,0,0,0.03), 0px 8px 16px -8px rgba(0,0,0,0.04);
+      --shadow-card-hover: 0px 0px 0px 1px rgba(0,0,0,0.1), 0px 4px 8px rgba(0,0,0,0.04), 0px 16px 24px -12px rgba(0,0,0,0.08);
+
       --font-sans: 'Geist', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
       --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --max-width: 1100px;
+      --nav-height: 64px;
     }
 
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
 
     body {
-      font-family: var(--font-sans);
-      font-size: 16px;
-      font-weight: 400;
-      line-height: 1.5;
-      color: var(--black);
-      background: var(--white);
+      font-family: var(--font-sans); font-size: 16px; font-weight: 400;
+      line-height: 1.5; color: var(--black); background: var(--white);
+      overflow-x: hidden;
     }
 
     /* ===== NAVIGATION ===== */
     .nav {
       position: fixed; top: 0; left: 0; right: 0; height: var(--nav-height);
-      background: rgba(255,255,255,0.82);
-      backdrop-filter: blur(20px); z-index: 100;
-      box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.06);
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(24px); z-index: 100;
+      box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.05);
+      transition: background 0.3s ease, box-shadow 0.3s ease;
     }
+    .nav.scrolled { background: rgba(255,255,255,0.95); box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.08); }
     .nav-inner {
       max-width: var(--max-width); margin: 0 auto; padding: 0 2rem;
       height: 100%; display: flex; align-items: center; justify-content: space-between;
@@ -62,61 +73,113 @@
     .nav-links { display: flex; align-items: center; gap: 2rem; list-style: none; }
     .nav-links a {
       text-decoration: none; color: var(--gray-500); font-size: 0.875rem; font-weight: 500;
+      transition: color 0.2s ease; position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 2px; background: var(--gradient-accent); border-radius: 2px;
+      transform: scaleX(0); transition: transform 0.25s ease;
     }
     .nav-links a:hover { color: var(--black); }
+    .nav-links a:hover::after { transform: scaleX(1); }
 
     /* ===== SECTIONS ===== */
     section { max-width: var(--max-width); margin: 0 auto; padding: 6rem 2rem; }
 
     .section-title {
-      font-size: 2.5rem; font-weight: 600; letter-spacing: -0.04em; line-height: 1.1; margin-bottom: 0.75rem;
+      font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 600;
+      letter-spacing: -0.04em; line-height: 1.15; margin-bottom: 0.75rem;
     }
-    .section-subtitle { font-size: 1.125rem; color: var(--gray-600); line-height: 1.6; max-width: 560px; }
+    .section-subtitle { font-size: 1.125rem; color: var(--gray-600); line-height: 1.65; max-width: 560px; }
 
     /* ===== HERO ===== */
+    .hero-wrapper {
+      background: var(--gradient-hero); position: relative; overflow: hidden;
+    }
+    .hero-wrapper::before {
+      content: ''; position: absolute; top: -200px; right: -150px;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+      animation: floatGlow 8s ease-in-out infinite;
+    }
+    @keyframes floatGlow {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -20px) scale(1.05); }
+      66% { transform: translate(-20px, 10px) scale(0.97); }
+    }
     .hero {
       padding-top: calc(var(--nav-height) + 6rem); padding-bottom: 5rem;
-      display: flex; flex-direction: column; gap: 1.5rem;
+      display: flex; flex-direction: column; gap: 1.5rem; position: relative; z-index: 1;
     }
     .hero-badge {
       display: inline-flex; align-items: center; gap: 8px;
-      padding: 4px 12px; background: var(--accent-light); color: var(--accent);
-      border-radius: 9999px; font-size: 0.8125rem; font-weight: 500;
+      padding: 5px 14px; background: linear-gradient(135deg, var(--white), var(--accent-light));
+      color: var(--accent); border-radius: 9999px; font-size: 0.8125rem; font-weight: 500;
+      box-shadow: var(--shadow-border);
     }
-    .hero-badge-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; }
+    .hero-badge-dot { width: 8px; height: 8px; background: var(--accent); border-radius: 50%; animation: pulseDot 2s ease-in-out infinite; }
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(1.3); }
+    }
     .hero-title {
       font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 600;
-      letter-spacing: -0.06em; line-height: 1.05; max-width: 720px;
+      letter-spacing: -0.05em; line-height: 1.08; max-width: 720px;
     }
-    .hero-title .highlight { color: var(--accent); }
-    .hero-desc { font-size: 1.25rem; color: var(--gray-600); line-height: 1.7; max-width: 560px; }
+    .hero-title .highlight {
+      background: var(--gradient-accent);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; font-weight: 700;
+    }
+    .hero-desc { font-size: 1.2rem; color: var(--gray-600); line-height: 1.7; max-width: 560px; }
     .hero-actions { display: flex; gap: 0.75rem; flex-wrap: wrap; }
 
     .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 20px; border-radius: 6px; font-size: 0.9375rem;
-      font-weight: 500; text-decoration: none; transition: all 0.15s ease; border: none; cursor: pointer;
+      display: inline-flex; align-items: center; gap: 8px; padding: 11px 22px;
+      border-radius: 8px; font-size: 0.9375rem; font-weight: 500;
+      text-decoration: none; cursor: pointer; transition: all 0.25s ease; border: none;
     }
-    .btn-primary { background: var(--black); color: var(--white); }
-    .btn-primary:hover { background: #1a1a1a; }
-    .btn-secondary { background: var(--white); color: var(--black); box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.08); }
-    .btn-secondary:hover { background: var(--gray-50); }
+    .btn-primary {
+      background: var(--gradient-accent); color: var(--white);
+      box-shadow: 0px 2px 12px var(--accent-glow);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0px 6px 24px var(--accent-glow); }
+    .btn-secondary {
+      background: var(--white); color: var(--black); box-shadow: var(--shadow-border);
+    }
+    .btn-secondary:hover {
+      background: linear-gradient(135deg, var(--white), var(--accent-light));
+      transform: translateY(-2px); box-shadow: var(--shadow-card);
+    }
 
     /* ===== ABOUT ===== */
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 2.5rem; }
-    .about-text p { color: var(--gray-600); font-size: 1.0625rem; line-height: 1.8; margin-bottom: 1.25rem; }
-
+    .about-text p { color: var(--gray-600); font-size: 1.0625rem; line-height: 1.85; margin-bottom: 1.25rem; }
     .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
     .stat-card {
-      padding: 1.5rem; background: var(--white); border-radius: 8px;
-      box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.08), 0px 2px 2px rgba(0,0,0,0.04);
-      text-align: center;
+      padding: 1.75rem 1.5rem; background: linear-gradient(180deg, var(--white) 0%, var(--gray-50) 100%);
+      border-radius: 12px; text-align: center; box-shadow: var(--shadow-card);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-    .stat-number { font-size: 2rem; font-weight: 600; color: var(--accent); display: block; }
-    .stat-label { font-size: 0.8125rem; color: var(--gray-500); margin-top: 0.25rem; display: block; }
+    .stat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-card-hover); }
+    .stat-number {
+      font-size: 2.25rem; font-weight: 700;
+      background: var(--gradient-accent);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text; display: block;
+    }
+    .stat-label { font-size: 0.8125rem; color: var(--gray-500); margin-top: 0.35rem; display: block; }
 
     /* ===== SKILLS ===== */
-    .skills-section { background: var(--gray-50); max-width: 100%; padding: 6rem 0; }
+    .skills-section {
+      max-width: 100%; padding: 6rem 0;
+      background: var(--gradient-skills); position: relative;
+    }
+    .skills-section::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(230,57,70,0.1), transparent);
+    }
     .skills-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 2rem; }
     .skills-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -124,11 +187,12 @@
     }
     .skill-item {
       display: flex; align-items: center; gap: 12px; padding: 1rem 1.25rem;
-      background: var(--white); border-radius: 8px;
-      box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.08);
-      font-size: 0.9375rem; font-weight: 500;
+      background: linear-gradient(135deg, var(--white), var(--gray-50));
+      border-radius: 10px; box-shadow: var(--shadow-border);
+      font-size: 0.9375rem; font-weight: 500; transition: all 0.3s ease;
     }
-    .skill-icon { font-size: 1.5rem; }
+    .skill-item:hover { transform: translateY(-3px); box-shadow: var(--shadow-card-hover); }
+    .skill-icon { font-size: 1.5rem; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, var(--gray-50), var(--white)); border-radius: 8px; flex-shrink: 0; }
 
     /* ===== PROJECTS ===== */
     .projects-grid {
@@ -136,23 +200,20 @@
       gap: 1.5rem; margin-top: 2.5rem;
     }
     .project-card {
-      background: var(--white); border-radius: 12px; overflow: hidden;
-      box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.08), 0px 2px 2px rgba(0,0,0,0.04);
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      background: var(--white); border-radius: 14px; overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: all 0.35s cubic-bezier(0.25, 0.8, 0.25, 1.2);
       text-decoration: none; color: inherit; display: block;
     }
-    .project-card:hover {
-      box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.12), 0px 4px 4px rgba(0,0,0,0.06);
-      transform: translateY(-2px);
-    }
-    .project-image { width: 100%; height: 200px; object-fit: cover; display: block; }
+    .project-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-card-hover); }
     .project-placeholder {
       width: 100%; height: 200px; display: flex; align-items: center; justify-content: center;
-      font-size: 3rem; font-weight: 700; color: var(--white);
+      font-size: 3.5rem; font-weight: 700; color: var(--white);
     }
     .project-body { padding: 1.5rem; }
     .project-tag {
-      display: inline-block; padding: 2px 10px; background: var(--accent-light);
+      display: inline-block; padding: 3px 12px;
+      background: linear-gradient(135deg, var(--accent-light), rgba(230,57,70,0.06));
       color: var(--accent); border-radius: 9999px; font-size: 0.75rem; font-weight: 500; margin-bottom: 0.75rem;
     }
     .project-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; }
@@ -160,21 +221,30 @@
     .project-tech { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
     .project-tech span {
       font-family: var(--font-mono); font-size: 0.75rem; color: var(--gray-500);
-      background: var(--gray-50); padding: 3px 8px; border-radius: 4px;
+      background: linear-gradient(135deg, var(--gray-50), #f3f3f3);
+      padding: 4px 10px; border-radius: 6px;
     }
 
     /* ===== CONTACT ===== */
-    .contact-section { background: var(--black); max-width: 100%; padding: 6rem 0; }
-    .contact-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 2rem; text-align: center; }
-    .contact-inner .section-title, .contact-inner .section-subtitle { color: var(--white); }
+    .contact-section {
+      max-width: 100%; padding: 6rem 0; background: var(--gradient-dark);
+      position: relative; overflow: hidden;
+    }
+    .contact-inner { max-width: var(--max-width); margin: 0 auto; padding: 0 2rem; text-align: center; position: relative; z-index: 1; }
+    .contact-inner .section-title { color: var(--white); }
     .contact-inner .section-subtitle { color: var(--gray-400); margin: 0 auto 2.5rem; }
     .contact-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
     .contact-link {
-      display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px;
-      background: rgba(255,255,255,0.08); color: var(--white); border-radius: 8px;
-      text-decoration: none; font-size: 0.9375rem; font-weight: 500; transition: background 0.15s ease;
+      display: inline-flex; align-items: center; gap: 8px; padding: 13px 26px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      color: var(--white); border-radius: 10px; text-decoration: none;
+      font-size: 0.9375rem; font-weight: 500; transition: all 0.3s ease;
+      box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.08);
     }
-    .contact-link:hover { background: rgba(255,255,255,0.14); }
+    .contact-link:hover {
+      background: linear-gradient(135deg, rgba(230,57,70,0.2), rgba(230,57,70,0.08));
+      transform: translateY(-2px);
+    }
 
     /* ===== FOOTER ===== */
     .footer {
@@ -182,12 +252,24 @@
       display: flex; justify-content: space-between; align-items: center;
       font-size: 0.8125rem; color: var(--gray-400); border-top: 1px solid var(--gray-100);
     }
-    .footer-social { display: flex; gap: 1rem; }
+    .footer-social { display: flex; gap: 1.25rem; }
     .footer-social a { color: var(--gray-400); text-decoration: none; }
-    .footer-social a:hover { color: var(--black); }
+    .footer-social a:hover { color: var(--accent); }
+
+    /* ===== SCROLL REVEAL ===== */
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.05s; }
+    .reveal-delay-2 { transition-delay: 0.1s; }
+    .reveal-delay-3 { transition-delay: 0.15s; }
+    .reveal-delay-4 { transition-delay: 0.2s; }
 
     /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
+      .nav-links { display: none; }
       section { padding: 4rem 1.25rem; }
       .hero { padding-top: calc(var(--nav-height) + 3rem); padding-bottom: 3rem; }
       .about-grid { grid-template-columns: 1fr; gap: 2rem; }
@@ -201,25 +283,15 @@
       .hero-actions { flex-direction: column; }
       .hero-actions .btn { width: 100%; text-align: center; }
     }
-
-    /* ===== ANIMATION ===== */
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .fade-in { animation: fadeInUp 0.5s ease forwards; opacity: 0; }
-    .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.2s; } .delay-3 { animation-delay: 0.3s; }
   </style>
 </head>
 <body>
 
   <!-- ===== NAVIGATION ===== -->
-  <nav class="nav">
+  <nav class="nav" id="nav">
     <div class="nav-inner">
-      <a href="#" class="nav-logo">
-        <!-- TODO: GANTI dengan nama kamu -->
-        Your Name
-      </a>
+      <!-- TODO: GANTI nama kamu -->
+      <a href="#" class="nav-logo">Your Name</a>
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
@@ -230,62 +302,41 @@
   </nav>
 
   <!-- ===== HERO ===== -->
-  <section class="hero">
-    <div class="hero-badge fade-in">
-      <span class="hero-badge-dot"></span>
-      <!-- TODO: GANTI status / headline kecil -->
-      Open for Opportunities
-    </div>
-    <h1 class="hero-title fade-in delay-1">
-      <!-- TODO: GANTI dengan role / headline kamu -->
-      Your Role &<br><span class="highlight">What You Do Best</span>
-    </h1>
-    <p class="hero-desc fade-in delay-2">
-      <!-- TODO: GANTI dengan deskripsi singkat tentang kamu -->
-      Tulis deskripsi singkat tentang dirimu di sini. Ceritakan apa yang kamu lakukan, 
-      skill utama kamu, dan kenapa orang harus kenal kamu.
-    </p>
-    <div class="hero-actions fade-in delay-3">
-      <a href="#projects" class="btn btn-primary">
-        Lihat Portfolio
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-      <a href="#contact" class="btn btn-secondary">Hubungi Saya</a>
-    </div>
-  </section>
+  <div class="hero-wrapper">
+    <section class="hero">
+      <!-- TODO: GANTI badge status -->
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span> Open for Opportunities
+      </div>
+      <!-- TODO: GANTI headline -->
+      <h1 class="hero-title">Your Role &amp;<br><span class="highlight">What You Do Best</span></h1>
+      <!-- TODO: GANTI deskripsi -->
+      <p class="hero-desc">
+        Tulis deskripsi singkat tentang dirimu di sini. Apa yang kamu lakukan, skill utama kamu, dan kenapa orang harus kenal kamu.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-primary">Lihat Portfolio</a>
+        <a href="#contact" class="btn btn-secondary">Hubungi Saya</a>
+      </div>
+    </section>
+  </div>
 
   <!-- ===== ABOUT ===== -->
   <section id="about">
-    <h2 class="section-title">About Me</h2>
-    <p class="section-subtitle">Sedikit cerita tentang perjalanan saya.</p>
+    <h2 class="section-title reveal">About Me</h2>
+    <p class="section-subtitle reveal">Sedikit cerita tentang perjalanan saya.</p>
     <div class="about-grid">
-      <div class="about-text">
-        <!-- TODO: GANTI dengan tentang kamu -->
-        <p>
-          Tulis paragraf pertama tentang dirimu — background, passion, atau apa yang kamu kerjakan saat ini.
-        </p>
-        <p>
-          Tulis paragraf kedua — pengalaman, pencapaian, atau visi kamu ke depannya.
-        </p>
+      <div class="about-text reveal">
+        <!-- TODO: GANTI paragraf tentang kamu -->
+        <p>Tulis paragraf pertama — background, passion, atau apa yang kamu kerjakan saat ini.</p>
+        <p>Tulis paragraf kedua — pengalaman, pencapaian, atau visi kamu ke depannya.</p>
       </div>
       <div class="about-stats">
-        <!-- TODO: GANTI angka dan label sesuai data kamu -->
-        <div class="stat-card">
-          <span class="stat-number">XX</span>
-          <span class="stat-label">Statistic Label</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-number">XX</span>
-          <span class="stat-label">Statistic Label</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-number">XX</span>
-          <span class="stat-label">Statistic Label</span>
-        </div>
-        <div class="stat-card">
-          <span class="stat-number">XX</span>
-          <span class="stat-label">Statistic Label</span>
-        </div>
+        <!-- TODO: GANTI angka & label -->
+        <div class="stat-card reveal reveal-delay-1"><span class="stat-number">XX</span><span class="stat-label">Stat Label</span></div>
+        <div class="stat-card reveal reveal-delay-2"><span class="stat-number">XX</span><span class="stat-label">Stat Label</span></div>
+        <div class="stat-card reveal reveal-delay-3"><span class="stat-number">XX</span><span class="stat-label">Stat Label</span></div>
+        <div class="stat-card reveal reveal-delay-4"><span class="stat-number">XX</span><span class="stat-label">Stat Label</span></div>
       </div>
     </div>
   </section>
@@ -293,61 +344,40 @@
   <!-- ===== SKILLS ===== -->
   <div class="skills-section" id="skills">
     <div class="skills-inner">
-      <h2 class="section-title">Skills & Tools</h2>
-      <p class="section-subtitle">Tech stack dan tools yang saya kuasai.</p>
+      <h2 class="section-title reveal">Skills &amp; Tools</h2>
+      <p class="section-subtitle reveal">Tech stack yang saya kuasai.</p>
       <div class="skills-grid">
-        <!-- TODO: GANTI dengan skill kamu. Copy-paste .skill-item untuk nambah -->
-        <div class="skill-item">
-          <div class="skill-icon">💡</div>
-          <span>Skill 1</span>
-        </div>
-        <div class="skill-item">
-          <div class="skill-icon">💡</div>
-          <span>Skill 2</span>
-        </div>
-        <div class="skill-item">
-          <div class="skill-icon">💡</div>
-          <span>Skill 3</span>
-        </div>
-        <div class="skill-item">
-          <div class="skill-icon">💡</div>
-          <span>Skill 4</span>
-        </div>
+        <!-- TODO: GANTI skill items. Copy-paste untuk nambah -->
+        <div class="skill-item reveal reveal-delay-1"><div class="skill-icon">💡</div><span>Skill 1</span></div>
+        <div class="skill-item reveal reveal-delay-2"><div class="skill-icon">💡</div><span>Skill 2</span></div>
+        <div class="skill-item reveal reveal-delay-3"><div class="skill-icon">💡</div><span>Skill 3</span></div>
+        <div class="skill-item reveal reveal-delay-4"><div class="skill-icon">💡</div><span>Skill 4</span></div>
       </div>
     </div>
   </div>
 
   <!-- ===== PROJECTS ===== -->
   <section id="projects">
-    <h2 class="section-title">Projects</h2>
-    <p class="section-subtitle">Beberapa project yang pernah saya kerjakan.</p>
+    <h2 class="section-title reveal">Projects</h2>
+    <p class="section-subtitle reveal">Beberapa project yang pernah saya kerjakan.</p>
     <div class="projects-grid">
-      <!-- TODO: GANTI dengan project kamu. Copy-paste .project-card untuk nambah -->
-      <a href="#" class="project-card" target="_blank" rel="noopener">
-        <div class="project-placeholder" style="background: linear-gradient(135deg, #e63946, #c1121f);">
-          P1
-        </div>
+      <!-- TODO: GANTI project. Copy-paste .project-card untuk nambah -->
+      <a href="#" class="project-card reveal reveal-delay-1" target="_blank" rel="noopener">
+        <div class="project-placeholder" style="background: linear-gradient(135deg, #e63946, #c1121f);">P1</div>
         <div class="project-body">
           <span class="project-tag">Category</span>
           <h3 class="project-title">Project Name</h3>
-          <p class="project-desc">Deskripsi singkat tentang project ini — apa yang dibuat, tujuannya, dan hasilnya.</p>
-          <div class="project-tech">
-            <span>Tech 1</span><span>Tech 2</span><span>Tech 3</span>
-          </div>
+          <p class="project-desc">Deskripsi singkat tentang project ini.</p>
+          <div class="project-tech"><span>Tech 1</span><span>Tech 2</span></div>
         </div>
       </a>
-      
-      <a href="#" class="project-card" target="_blank" rel="noopener">
-        <div class="project-placeholder" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);">
-          P2
-        </div>
+      <a href="#" class="project-card reveal reveal-delay-2" target="_blank" rel="noopener">
+        <div class="project-placeholder" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);">P2</div>
         <div class="project-body">
           <span class="project-tag">Category</span>
           <h3 class="project-title">Project Name</h3>
-          <p class="project-desc">Deskripsi singkat tentang project ini — apa yang dibuat, tujuannya, dan hasilnya.</p>
-          <div class="project-tech">
-            <span>Tech 1</span><span>Tech 2</span>
-          </div>
+          <p class="project-desc">Deskripsi singkat tentang project ini.</p>
+          <div class="project-tech"><span>Tech 1</span><span>Tech 2</span></div>
         </div>
       </a>
     </div>
@@ -356,15 +386,15 @@
   <!-- ===== CONTACT ===== -->
   <div class="contact-section" id="contact">
     <div class="contact-inner">
-      <h2 class="section-title">Let's Connect</h2>
-      <p class="section-subtitle">
-        <!-- TODO: GANTI ajakan kontak -->
-        Tertarik untuk kolaborasi atau sekedar ngobrol? Jangkau saya lewat:
+      <h2 class="section-title reveal">Let's Connect</h2>
+      <p class="section-subtitle reveal">
+        <!-- TODO: GANTI ajakan -->
+        Tertarik kolaborasi atau sekedar ngobrol? Reach out aja!
       </p>
-      <div class="contact-links">
-        <!-- TODO: GANTI link kontak kamu -->
+      <div class="contact-links reveal">
+        <!-- TODO: GANTI link kontak -->
         <a href="#" class="contact-link">🌐 Website</a>
-        <a href="mailto:your@email.com" class="contact-link">✉️ Email</a>
+        <a href="mailto:you@email.com" class="contact-link">✉️ Email</a>
         <a href="#" class="contact-link">💼 LinkedIn</a>
       </div>
     </div>
@@ -372,13 +402,28 @@
 
   <!-- ===== FOOTER ===== -->
   <footer class="footer">
-    <!-- TODO: GANTI nama dan tahun -->
+    <!-- TODO: GANTI nama -->
     <span>© 2026 Your Name. Built with ❤️ using Claude AI.</span>
     <div class="footer-social">
       <a href="#" target="_blank" rel="noopener">GitHub</a>
       <a href="#" target="_blank" rel="noopener">LinkedIn</a>
     </div>
   </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    // Scroll reveal
+    document.querySelectorAll('.reveal').forEach(el => {
+      new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); obs.unobserve(entry.target); }});
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' }).observe(el);
+    });
+
+    // Nav scroll
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
+    });
+  </script>
 
 </body>
 </html>
