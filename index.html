@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Galih Pratama — AI Trainer & Developer</title>
+  <meta name="description" content="Personal portfolio of Galih Pratama — AI Trainer, Full-stack Developer, and founder of JagoHermes & KelasClaude.">
+  <link rel="icon" type="image/png" href="https://galihpratama.com/images/logo-galih.png">
+
+  <!-- Geist + Geist Mono from Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      /* Colors — Vercel-inspired neutral scale */
+      --black: #171717;
+      --gray-900: #1a1a1a;
+      --gray-600: #4d4d4d;
+      --gray-500: #666666;
+      --gray-400: #808080;
+      --gray-100: #ebebeb;
+      --gray-50: #fafafa;
+      --white: #ffffff;
+
+      /* Accent — Galih's brand red */
+      --accent: #e63946;
+      --accent-hover: #c1121f;
+      --accent-light: #fef2f2;
+
+      /* Shadows — Vercel's shadow-as-border technique */
+      --shadow-border: 0px 0px 0px 1px rgba(0,0,0,0.08);
+      --shadow-card: 0px 0px 0px 1px rgba(0,0,0,0.08), 0px 2px 2px rgba(0,0,0,0.04), 0px 8px 8px -8px rgba(0,0,0,0.04);
+      --shadow-card-hover: 0px 0px 0px 1px rgba(0,0,0,0.12), 0px 4px 4px rgba(0,0,0,0.06), 0px 16px 16px -12px rgba(0,0,0,0.06);
+      --shadow-lg: 0px 0px 0px 1px rgba(0,0,0,0.08), 0px 4px 6px rgba(0,0,0,0.06), 0px 20px 20px -16px rgba(0,0,0,0.08);
+
+      /* Typography */
+      --font-sans: 'Geist', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+      /* Layout */
+      --max-width: 1100px;
+      --nav-height: 64px;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 1.5;
+      color: var(--black);
+      background: var(--white);
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    h1, h2, h3, h4 {
+      font-weight: 600;
+      letter-spacing: -0.02em;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-subtitle {
+      font-size: 1.125rem;
+      color: var(--gray-600);
+      line-height: 1.6;
+      max-width: 560px;
+    }
+
+    /* ===== NAVIGATION ===== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      background: rgba(255,255,255,0.82);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      z-index: 100;
+      box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.06);
+    }
+
+    .nav-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 2rem;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--black);
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo img {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--gray-500);
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: color 0.15s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--black);
+    }
+
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 16px;
+      background: var(--black);
+      color: var(--white) !important;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.15s ease;
+    }
+
+    .nav-cta:hover {
+      background: var(--gray-900);
+    }
+
+    /* Mobile nav */
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+    }
+
+    .nav-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--black);
+      margin: 4px 0;
+      border-radius: 2px;
+      transition: 0.2s ease;
+    }
+
+    /* ===== SECTIONS ===== */
+    section {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 6rem 2rem;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      padding-top: calc(var(--nav-height) + 6rem);
+      padding-bottom: 5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 12px 4px 8px;
+      background: var(--accent-light);
+      color: var(--accent);
+      border-radius: 9999px;
+      font-size: 0.8125rem;
+      font-weight: 500;
+    }
+
+    .hero-badge-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+      animation: pulse-dot 2s infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .hero-title {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 600;
+      letter-spacing: -0.06em;
+      line-height: 1.05;
+      max-width: 720px;
+    }
+
+    .hero-title .highlight {
+      color: var(--accent);
+    }
+
+    .hero-desc {
+      font-size: 1.25rem;
+      color: var(--gray-600);
+      line-height: 1.7;
+      max-width: 560px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-family: var(--font-sans);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--black);
+      color: var(--white);
+      box-shadow: var(--shadow-border);
+    }
+
+    .btn-primary:hover {
+      background: var(--gray-900);
+      box-shadow: var(--shadow-card);
+    }
+
+    .btn-secondary {
+      background: var(--white);
+      color: var(--black);
+      box-shadow: var(--shadow-border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--gray-50);
+      box-shadow: var(--shadow-card);
+    }
+
+    .btn-accent {
+      background: var(--accent);
+      color: var(--white);
+    }
+
+    .btn-accent:hover {
+      background: var(--accent-hover);
+    }
+
+    /* ===== ABOUT ===== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+      margin-top: 2.5rem;
+    }
+
+    .about-text p {
+      color: var(--gray-600);
+      font-size: 1.0625rem;
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .stat-card {
+      padding: 1.5rem;
+      background: var(--white);
+      border-radius: 8px;
+      box-shadow: var(--shadow-card);
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -0.04em;
+      color: var(--accent);
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.8125rem;
+      color: var(--gray-500);
+      margin-top: 0.25rem;
+      display: block;
+    }
+
+    /* ===== SKILLS ===== */
+    .skills-section {
+      background: var(--gray-50);
+      max-width: 100%;
+      padding: 6rem 0;
+    }
+
+    .skills-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+
+    .skill-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 1rem 1.25rem;
+      background: var(--white);
+      border-radius: 8px;
+      box-shadow: var(--shadow-border);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      transition: box-shadow 0.15s ease;
+    }
+
+    .skill-item:hover {
+      box-shadow: var(--shadow-card-hover);
+    }
+
+    .skill-icon {
+      font-size: 1.5rem;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gray-50);
+      border-radius: 8px;
+      flex-shrink: 0;
+    }
+
+    /* ===== PROJECTS ===== */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+
+    .project-card {
+      background: var(--white);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .project-card:hover {
+      box-shadow: var(--shadow-card-hover);
+      transform: translateY(-2px);
+    }
+
+    .project-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .project-image-placeholder {
+      width: 100%;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .project-body {
+      padding: 1.5rem;
+    }
+
+    .project-tag {
+      display: inline-block;
+      padding: 2px 10px;
+      background: var(--accent-light);
+      color: var(--accent);
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+    }
+
+    .project-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-desc {
+      font-size: 0.9375rem;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .project-tech span {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--gray-500);
+      background: var(--gray-50);
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonial-card {
+      padding: 2rem;
+      background: var(--white);
+      border-radius: 12px;
+      box-shadow: var(--shadow-card);
+      max-width: 640px;
+      margin-top: 2.5rem;
+    }
+
+    .testimonial-text {
+      font-size: 1.125rem;
+      line-height: 1.8;
+      color: var(--gray-600);
+      font-style: italic;
+      margin-bottom: 1.25rem;
+    }
+
+    .testimonial-text::before {
+      content: '"';
+    }
+
+    .testimonial-text::after {
+      content: '"';
+    }
+
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--gray-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.875rem;
+      color: var(--gray-500);
+    }
+
+    .testimonial-name {
+      font-weight: 600;
+      font-size: 0.9375rem;
+    }
+
+    .testimonial-role {
+      font-size: 0.8125rem;
+      color: var(--gray-500);
+    }
+
+    /* ===== CONTACT ===== */
+    .contact-section {
+      background: var(--black);
+      max-width: 100%;
+      padding: 6rem 0;
+    }
+
+    .contact-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    .contact-inner .section-title,
+    .contact-inner .section-subtitle {
+      color: var(--white);
+    }
+
+    .contact-inner .section-subtitle {
+      color: var(--gray-400);
+      margin: 0 auto 2.5rem;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background: rgba(255,255,255,0.08);
+      color: var(--white);
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 0.9375rem;
+      font-weight: 500;
+      transition: background 0.15s ease;
+      box-shadow: 0px 0px 0px 1px rgba(255,255,255,0.1);
+    }
+
+    .contact-link:hover {
+      background: rgba(255,255,255,0.14);
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8125rem;
+      color: var(--gray-400);
+      border-top: 1px solid var(--gray-100);
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .footer-social a {
+      color: var(--gray-400);
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+
+    .footer-social a:hover {
+      color: var(--black);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .nav-toggle {
+        display: block;
+      }
+
+      .nav-links.open {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: var(--nav-height);
+        left: 0;
+        right: 0;
+        background: var(--white);
+        padding: 1.5rem;
+        box-shadow: var(--shadow-lg);
+        gap: 1rem;
+      }
+
+      section {
+        padding: 4rem 1.25rem;
+      }
+
+      .hero {
+        padding-top: calc(var(--nav-height) + 3rem);
+        padding-bottom: 3rem;
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .about-stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-title {
+        font-size: 2rem;
+      }
+
+      .section-title {
+        font-size: 1.75rem;
+      }
+
+      .skills-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .hero-actions .btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    /* ===== ANIMATIONS ===== */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in {
+      animation: fadeInUp 0.5s ease forwards;
+      opacity: 0;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="https://galihpratama.com/images/logo-galih.png" alt="Logo" width="32" height="32">
+        Galih Pratama
+      </a>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="nav-toggle" id="navToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge fade-in">
+      <span class="hero-badge-dot"></span>
+      Open for Collaboration
+    </div>
+    <h1 class="hero-title fade-in delay-1">
+      AI Trainer &<br><span class="highlight">Full-stack Developer</span>
+    </h1>
+    <p class="hero-desc fade-in delay-2">
+      Membantu individu dan tim menguasai AI tools seperti Claude & Cursor untuk development. 
+      Founder dari JagoHermes & KelasClaude — platform belajar AI untuk developer Indonesia.
+    </p>
+    <div class="hero-actions fade-in delay-3">
+      <a href="#projects" class="btn btn-primary">
+        Lihat Portfolio
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#contact" class="btn btn-secondary">Hubungi Saya</a>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <h2 class="section-title">About Me</h2>
+    <p class="section-subtitle">Sedikit cerita tentang perjalanan saya di dunia tech & AI.</p>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          Saya Galih Pratama, seorang AI Trainer dan Full-stack Developer berbasis di Bandung, Indonesia. 
+          Saya fokus membantu developer dan tim mengadopsi AI tools seperti Claude, Cursor, dan Hermes 
+          untuk mempercepat workflow development mereka.
+        </p>
+        <p>
+          Sebagai founder dari <strong>JagoHermes</strong> dan <strong>KelasClaude</strong>, saya telah 
+          melatih ratusan developer Indonesia dalam menggunakan AI untuk coding, dari pemula hingga 
+          professional. Saya percaya AI bukan untuk menggantikan developer, tapi untuk membuat mereka 
+          10x lebih produktif.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <span class="stat-number">500+</span>
+          <span class="stat-label">Students Trained</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">4</span>
+          <span class="stat-label">Products Launched</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">20+</span>
+          <span class="stat-label">Workshops Given</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">3+</span>
+          <span class="stat-label">Years in AI</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills -->
+  <div class="skills-section" id="skills">
+    <div class="skills-inner">
+      <h2 class="section-title">Skills & Tools</h2>
+      <p class="section-subtitle">Tech stack yang sehari-hari saya pakai.</p>
+      <div class="skills-grid">
+        <div class="skill-item">
+          <div class="skill-icon">🤖</div>
+          <span>Claude / Cursor AI</span>
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon">⚛️</div>
+          <span>React / Next.js</span>
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon">🎨</div>
+          <span>Tailwind CSS</span>
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon">🔷</div>
+          <span>TypeScript</span>
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon">🐘</div>
+          <span>PostgreSQL</span>
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon">▲</div>
+          <span>Vercel / Netlify</span>
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon">🐳</div>
+          <span>Docker</span>
+        </div>
+        <div class="skill-item">
+          <div class="skill-icon">⚡</div>
+          <span>Supabase</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Projects -->
+  <section id="projects">
+    <h2 class="section-title">Featured Projects</h2>
+    <p class="section-subtitle">Produk dan project yang saya bangun dengan AI.</p>
+    <div class="projects-grid">
+      <!-- Project 1: JagoHermes -->
+      <a href="https://jagohermes.com" class="project-card" target="_blank" rel="noopener">
+        <div class="project-image-placeholder" style="background: linear-gradient(135deg, #e63946, #c1121f);">
+          JH
+        </div>
+        <div class="project-body">
+          <span class="project-tag">AI Platform</span>
+          <h3 class="project-title">JagoHermes</h3>
+          <p class="project-desc">
+            Platform belajar Hermes Agent — AI assistant yang bisa kamu kustomisasi untuk automation, coding, dan content creation.
+          </p>
+          <div class="project-tech">
+            <span>Next.js</span><span>Tailwind</span><span>Supabase</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Project 2: KelasClaude -->
+      <a href="https://kelasclaude.com" class="project-card" target="_blank" rel="noopener">
+        <div class="project-image-placeholder" style="background: linear-gradient(135deg, #f59e0b, #d97706);">
+          KC
+        </div>
+        <div class="project-body">
+          <span class="project-tag">Online Course</span>
+          <h3 class="project-title">KelasClaude</h3>
+          <p class="project-desc">
+            E-course lengkap tentang vibe coding dengan Claude — dari basic prompting sampai deploy production.
+          </p>
+          <div class="project-tech">
+            <span>Next.js</span><span>Tailwind</span><span>E-book</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Project 3: BelajarVibeCoding -->
+      <a href="https://belajarvibecoding.com" class="project-card" target="_blank" rel="noopener">
+        <div class="project-image-placeholder" style="background: linear-gradient(135deg, #8b5cf6, #6d28d9);">
+          BVC
+        </div>
+        <div class="project-body">
+          <span class="project-tag">Learning Platform</span>
+          <h3 class="project-title">BelajarVibeCoding</h3>
+          <p class="project-desc">
+            Komunitas belajar vibe coding untuk developer Indonesia — dari nol sampai jago bikin app pake AI.
+          </p>
+          <div class="project-tech">
+            <span>Next.js</span><span>AI</span><span>Community</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Project 4: KilatKoding -->
+      <a href="https://kilatkoding.com" class="project-card" target="_blank" rel="noopener">
+        <div class="project-image-placeholder" style="background: linear-gradient(135deg, #059669, #047857);">
+          KK
+        </div>
+        <div class="project-body">
+          <span class="project-tag">Bootcamp</span>
+          <h3 class="project-title">KilatKoding</h3>
+          <p class="project-desc">
+            Platform bootcamp coding intensif — belajar full-stack development dengan kurikulum yang up-to-date.
+          </p>
+          <div class="project-tech">
+            <span>Next.js</span><span>PostgreSQL</span><span>Docker</span>
+          </div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section>
+    <h2 class="section-title">What People Say</h2>
+    <p class="section-subtitle">Feedback dari beberapa klien dan students.</p>
+    <div class="testimonial-card">
+      <p class="testimonial-text">
+        Workshop Claude-nya Galih bener-bener mind-blowing. Dalam 90 menit aja kita udah bisa bikin website portfolio sendiri pake AI. Recommended banget buat yang mau mulai vibe coding!
+      </p>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">MK</div>
+        <div>
+          <div class="testimonial-name">Marini Koto</div>
+          <div class="testimonial-role">Eduwork</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <div class="contact-section" id="contact">
+    <div class="contact-inner">
+      <h2 class="section-title">Let's Work Together</h2>
+      <p class="section-subtitle">
+        Tertarik kolaborasi, workshop, atau sekedar ngobrol soal AI & development? Reach out aja!
+      </p>
+      <div class="contact-links">
+        <a href="https://galihpratama.com" class="contact-link" target="_blank" rel="noopener">
+          🌐 Website
+        </a>
+        <a href="mailto:hi@galihpratama.com" class="contact-link">
+          ✉️ Email
+        </a>
+        <a href="https://goakal.com/galih-pratama" class="contact-link" target="_blank" rel="noopener">
+          📅 Book a Call
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <span>© 2026 Galih Pratama. Built with ❤️ using Claude AI.</span>
+    <div class="footer-social">
+      <a href="https://github.com/galpratama" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://jagohermes.com" target="_blank" rel="noopener">JagoHermes</a>
+      <a href="https://kelasclaude.com" target="_blank" rel="noopener">KelasClaude</a>
+    </div>
+  </footer>
+
+  <!-- Mobile nav toggle script -->
+  <script>
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+    toggle.addEventListener('click', () => {
+      links.classList.toggle('open');
+    });
+    links.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => links.classList.remove('open'));
+    });
+  </script>
+
+</body>
+</html>
